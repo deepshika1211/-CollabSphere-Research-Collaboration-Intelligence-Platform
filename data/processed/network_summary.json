@@ -1,0 +1,14 @@
+{
+  "total_vertices": 5241,
+  "total_undirected_edges": 14484,
+  "total_connected_components": 354,
+  "largest_component_vertices": 4158,
+  "largest_component_fraction": 79.33600457927876,
+  "max_degree": 81,
+  "avg_degree": 5.527189467658844,
+  "max_pagerank": 7.560170470298628,
+  "min_pagerank": 0.19920371097823725,
+  "self_loops_filtered": 12,
+  "directed_input_lines": 28980,
+  "dataset": "SNAP ca-GrQc General Relativity & Quantum Cosmology"
+}
