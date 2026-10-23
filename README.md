@@ -98,13 +98,11 @@ It satisfies all six core assignment requirements using **Scala and Apache Spark
 │   │   └── services/
 │   ├── requirements.txt
 │   └── tests/
-├── frontend/                         # React + TS + Cytoscape + Tailwind
-│   ├── package.json
-│   ├── tailwind.config.js
-│   ├── src/
-│   │   ├── index.css                 # Exact color tokens from screenshot
-│   │   ├── components/
-│   │   └── pages/
-└── docs/                             # Academic report & methodology documentation
-    └── METHODOLOGY.md
+└── frontend/                         # React + TS + Cytoscape + Tailwind
+    ├── package.json
+    ├── tailwind.config.js
+    └── src/
+        ├── index.css                 # Exact color tokens from screenshot
+        ├── components/
+        └── pages/
 ```
