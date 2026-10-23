@@ -105,8 +105,6 @@ It satisfies all six core assignment requirements using **Scala and Apache Spark
 │   │   ├── index.css                 # Exact color tokens from screenshot
 │   │   ├── components/
 │   │   └── pages/
-└── docs/                             # Academic report & Viva defense notes
-    ├── METHODOLOGY.md
-    ├── ASSIGNMENT_REPORT.md
-    └── VIVA_QUESTIONS.md
+└── docs/                             # Academic report & methodology documentation
+    └── METHODOLOGY.md
 ```

@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
             { id: 'discovery', label: 'Discovery' },
             { id: 'simulator', label: 'What-If Simulator' },
             { id: 'saved', label: 'Saved & Outreach' },
-            { id: 'reports', label: 'Reports & Viva' },
+            { id: 'reports', label: 'Reports & Analytics' },
           ].map((tab) => (
             <button
               key={tab.id}

@@ -24,7 +24,7 @@ export const IconRail: React.FC<IconRailProps> = ({ activeTab, setActiveTab }) =
     { id: 'discovery', icon: Compass, title: 'Researcher Discovery' },
     { id: 'simulator', icon: GitFork, title: 'What-If Structural Simulator' },
     { id: 'saved', icon: BookmarkCheck, title: 'Saved & Outreach Drafts' },
-    { id: 'reports', icon: GraduationCap, title: 'Reports, Viva & Methodology' },
+    { id: 'reports', icon: GraduationCap, title: 'Reports & Academic Methodology' },
   ];
 
   return (

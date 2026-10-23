@@ -137,10 +137,10 @@ export const CommunitiesPage: React.FC<CommunitiesPageProps> = ({
                 </button>
               </div>
 
-              {/* Viva Insight Box */}
+              {/* Concept Note */}
               <div className="p-3 bg-panel-secondary rounded border border-border-subtle text-[11px] leading-relaxed text-text-secondary space-y-1">
                 <span className="text-graph-cyan font-semibold block text-[10px] uppercase font-mono">
-                  Academic Concept & Viva Defense Note:
+                  Graph Analytics Concept:
                 </span>
                 <p>
                   In scientific co-authorship networks, the emergence of a <strong>Giant Connected Component</strong> (here encompassing 79.34% of all researchers) reflects a "small-world" phenomenon. While these researchers work across various institutions and subfields of Quantum Cosmology, collaboration paths connect them through chain links of joint papers.
