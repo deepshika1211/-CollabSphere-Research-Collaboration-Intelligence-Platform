@@ -17,7 +17,7 @@ Using **Scala and Apache Spark GraphX**, it executes graph analytics on the Stan
 
 ## 📑 Table of Contents
 1. [Project Overview & Problem Statement](#-project-overview--problem-statement)
-2. [Mandatory Assignment 23 Requirements](#-mandatory-assignment-23-requirements)
+2. [Assignment Requirements](#-assignment-requirements)
 3. [Verified Dataset Metrics & Processing Proof](#-verified-dataset-metrics--processing-proof)
 4. [System Architecture](#-system-architecture)
 5. [Prerequisites & System Requirements](#-prerequisites--system-requirements)
@@ -31,7 +31,7 @@ Using **Scala and Apache Spark GraphX**, it executes graph analytics on the Stan
 9. [REST API Documentation](#-rest-api-documentation)
 10. [Automated Test Suite & Verification](#-automated-test-suite--verification)
 11. [Data Schemas (CSV & JSON)](#-data-schemas-csv--json)
-12. [Project Demonstration & Viva Defense Guide](#-project-demonstration--viva-defense-guide)
+12. [Project Demonstration & Presentation Guide](#-project-demonstration--presentation-guide)
 
 ---
 
@@ -48,7 +48,7 @@ CollabSphere solves this by transforming raw academic co-authorship logs into an
 
 ---
 
-## 📋 Mandatory Assignment 23 Requirements
+## 📋 Assignment Requirements
 
 All six mandatory requirements are implemented using **Scala and Apache Spark GraphX**:
 
@@ -406,7 +406,7 @@ When presenting CollabSphere:
 
 1. **Start with the Architecture**:
    - Point out the separation between **Spark GraphX** (distributed analytics), **FastAPI** (REST ingestion & simulation), and **React** (Cytoscape visualization).
-2. **Demonstrate the 6 Mandatory Requirements**:
+2. **Demonstrate the Assignment Requirements**:
    - Navigate to **Rankings** to show the top connected scholars ($d=81$).
    - Show the **Overview** charts for degree distribution (power-law tail) and connected components.
    - Show the **Centrality Comparison** and explain what a *Prestige Bridge* is ($\Delta R > 150$).
