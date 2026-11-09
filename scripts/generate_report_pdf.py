@@ -1,7 +1,8 @@
 """
-CollabSphere Academic Project Report PDF Generator
-Produces a publication-grade PDF conforming strictly to the 8 required sections,
-embedding generated figures, styling tables, and mathematical formulas.
+CollabSphere Academic Project Report PDF Generator with Exact LPU Cover Page
+- Page 1: Exact LPU Project Report Cover Page (Intelligent NoSQL Databases, Lovely Professional University,
+          Student Details: Deepshika, Reg: 12315065, Section: K23MB, Course: CSE-494, Mentor: Ms. Kondapalli Pravallika).
+- Pages 2-9: Formal 8-section Academic Report with embedded high-resolution figures, tables, and verification logs.
 """
 
 import os
@@ -34,23 +35,22 @@ class NumberedCanvas(canvas.Canvas):
 
     def draw_page_decorations(self, page_count):
         self.saveState()
-        self.setFont("Helvetica", 8)
-        self.setFillColor(colors.HexColor("#718096"))
-        
-        # Header (pages > 1)
+        # Page 1 is the official Cover Page: suppress running header and footer
         if self._pageNumber > 1:
+            self.setFont("Helvetica", 8)
+            self.setFillColor(colors.HexColor("#718096"))
+            # Header
             self.drawString(54, 750, "CollabSphere — Project 23: Researcher Collaboration Analysis")
             self.drawRightString(558, 750, "Academic Project Report")
             self.setStrokeColor(colors.HexColor("#CBD5E1"))
             self.setLineWidth(0.5)
             self.line(54, 744, 558, 744)
-        
-        # Footer
-        self.setStrokeColor(colors.HexColor("#CBD5E1"))
-        self.setLineWidth(0.5)
-        self.line(54, 45, 558, 45)
-        self.drawString(54, 32, "BTech Computer Science & Engineering | Apache Spark GraphX & Cytoscape.js")
-        self.drawRightString(558, 32, f"Page {self._pageNumber} of {page_count}")
+            # Footer
+            self.setStrokeColor(colors.HexColor("#CBD5E1"))
+            self.setLineWidth(0.5)
+            self.line(54, 45, 558, 45)
+            self.drawString(54, 32, "Lovely Professional University | School of Computer Science and Engineering")
+            self.drawRightString(558, 32, f"Page {self._pageNumber} of {page_count}")
         self.restoreState()
 
 
@@ -66,27 +66,101 @@ def build_pdf():
 
     styles = getSampleStyleSheet()
 
-    # Custom styles
-    title_style = ParagraphStyle(
-        'DocTitle',
+    # Cover Page Styles
+    cover_title_style = ParagraphStyle(
+        'CoverTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=21,
-        leading=25,
+        fontSize=17,
+        leading=22,
         textColor=colors.HexColor('#0F172A'),
         alignment=1,
-        spaceAfter=6
+        spaceAfter=4
     )
 
-    subtitle_style = ParagraphStyle(
-        'DocSubtitle',
+    cover_subtitle_style = ParagraphStyle(
+        'CoverSubtitle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=15,
+        leading=20,
+        textColor=colors.HexColor('#0F172A'),
+        alignment=1,
+        spaceAfter=18
+    )
+
+    cover_projname_style = ParagraphStyle(
+        'CoverProjectName',
         parent=styles['Normal'],
         fontName='Helvetica',
         fontSize=12,
         leading=16,
         textColor=colors.HexColor('#0284C7'),
         alignment=1,
-        spaceAfter=14
+        spaceAfter=15
+    )
+
+    cover_label_bold = ParagraphStyle(
+        'CoverLabelBold',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=11,
+        leading=16,
+        textColor=colors.HexColor('#0F172A'),
+        alignment=1
+    )
+
+    cover_body_style = ParagraphStyle(
+        'CoverBody',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=10.5,
+        leading=15,
+        textColor=colors.HexColor('#1E293B'),
+        alignment=1
+    )
+
+    cover_mentor_style = ParagraphStyle(
+        'CoverMentor',
+        parent=styles['Italic'],
+        fontName='Helvetica-Oblique',
+        fontSize=11,
+        leading=16,
+        textColor=colors.HexColor('#0F172A'),
+        alignment=1
+    )
+
+    cover_footer_style = ParagraphStyle(
+        'CoverFooter',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=10,
+        leading=14,
+        textColor=colors.HexColor('#334155'),
+        alignment=1
+    )
+
+    # Report Body Styles
+    doc_title_style = ParagraphStyle(
+        'DocTitle',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=18,
+        leading=22,
+        textColor=colors.HexColor('#0F172A'),
+        alignment=1,
+        spaceAfter=6
+    )
+
+    doc_subtitle_style = ParagraphStyle(
+        'DocSubtitle',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=11,
+        leading=15,
+        textColor=colors.HexColor('#0284C7'),
+        alignment=1,
+        spaceAfter=12
     )
 
     meta_style = ParagraphStyle(
@@ -97,15 +171,15 @@ def build_pdf():
         leading=13,
         textColor=colors.HexColor('#475569'),
         alignment=1,
-        spaceAfter=20
+        spaceAfter=16
     )
 
     h1_style = ParagraphStyle(
         'Heading1_Custom',
         parent=styles['Heading1'],
         fontName='Helvetica-Bold',
-        fontSize=14,
-        leading=18,
+        fontSize=13,
+        leading=17,
         textColor=colors.HexColor('#0F172A'),
         spaceBefore=14,
         spaceAfter=8,
@@ -116,8 +190,8 @@ def build_pdf():
         'Heading2_Custom',
         parent=styles['Heading2'],
         fontName='Helvetica-Bold',
-        fontSize=11,
-        leading=15,
+        fontSize=10.5,
+        leading=14,
         textColor=colors.HexColor('#0369A1'),
         spaceBefore=10,
         spaceAfter=5,
@@ -128,10 +202,10 @@ def build_pdf():
         'Body_Custom',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=9.5,
-        leading=14,
+        fontSize=9,
+        leading=13.5,
         textColor=colors.HexColor('#1E293B'),
-        spaceAfter=7
+        spaceAfter=6
     )
 
     body_bold = ParagraphStyle(
@@ -170,11 +244,62 @@ def build_pdf():
 
     story = []
 
-    # Title block
-    story.append(Paragraph("COLLABSPHERE — RESEARCH COLLABORATION INTELLIGENCE PLATFORM", title_style))
-    story.append(Paragraph("Project 23: Researcher Collaboration Analysis (Academic Project Report)", subtitle_style))
-    story.append(Paragraph("<b>Course:</b> Big Data Analytics / Network Science &nbsp;|&nbsp; <b>Degree:</b> BTech Computer Science & Engineering<br/><b>Technology Stack:</b> Apache Spark 3.5.9 (GraphX), Scala 2.12, FastAPI, React, Cytoscape.js", meta_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#CBD5E1'), spaceAfter=14))
+    # =========================================================================
+    # PAGE 1: EXACT COVER PAGE (As requested by student)
+    # =========================================================================
+    story.append(Spacer(1, 20))
+    story.append(Paragraph("INTELLIGENT NOSQL DATABASES", cover_title_style))
+    story.append(Paragraph("PROJECT REPORT", cover_subtitle_style))
+    story.append(Spacer(1, 10))
+
+    story.append(Paragraph(
+        "<u>CollabSphere: Researcher Collaboration Analysis Platform</u><br/>"
+        "<font size=10 color='#64748B'>(Project 23 — Scientific Knowledge Graph Analytics)</font>",
+        cover_projname_style
+    ))
+    story.append(Spacer(1, 10))
+
+    # LPU Logo Block
+    if os.path.exists('assets/figures/lpu_logo_card.png'):
+        lpu_logo = Image('assets/figures/lpu_logo_card.png', width=330, height=167)
+        story.append(KeepTogether([lpu_logo]))
+    else:
+        story.append(Spacer(1, 140))
+
+    story.append(Spacer(1, 22))
+
+    story.append(Paragraph("<b>Submitted by:</b> Deepshika", cover_body_style))
+    story.append(Spacer(1, 3))
+    story.append(Paragraph("<b>Registration No:</b> 12315065", cover_body_style))
+    story.append(Spacer(1, 3))
+    story.append(Paragraph("<b>Programme and Section:</b> K23MB", cover_body_style))
+    story.append(Spacer(1, 3))
+    story.append(Paragraph("<b>Course Code:</b> CSE-494", cover_body_style))
+
+    story.append(Spacer(1, 20))
+
+    story.append(Paragraph("<b>Under the Guidance of</b>", cover_label_bold))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("<i>Ms. Kondapalli Pravallika</i>", cover_mentor_style))
+
+    story.append(Spacer(1, 28))
+
+    story.append(Paragraph("Discipline of CSE/IT", cover_footer_style))
+    story.append(Spacer(1, 2))
+    story.append(Paragraph("Lovely School of Computer Science and Engineering", cover_footer_style))
+    story.append(Spacer(1, 2))
+    story.append(Paragraph("Lovely Professional University, Phagwara", cover_footer_style))
+
+    # Page break after Cover Page
+    story.append(PageBreak())
+
+    # =========================================================================
+    # PAGE 2+: FORMAL 8-SECTION ACADEMIC REPORT
+    # =========================================================================
+    story.append(Paragraph("COLLABSPHERE — RESEARCH COLLABORATION INTELLIGENCE PLATFORM", doc_title_style))
+    story.append(Paragraph("Project 23: Researcher Collaboration Analysis (Academic Project Report)", doc_subtitle_style))
+    story.append(Paragraph("<b>Course:</b> CSE-494 Intelligent NoSQL Databases &nbsp;|&nbsp; <b>Student:</b> Deepshika (Reg: 12315065, K23MB)<br/><b>Technology Stack:</b> Apache Spark 3.5.9 (GraphX), Scala 2.12, FastAPI, React, Cytoscape.js", meta_style))
+    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#CBD5E1'), spaceAfter=12))
 
     # SECTION 1
     story.append(Paragraph("1. Introduction", h1_style))
@@ -208,7 +333,7 @@ def build_pdf():
         body_style
     ))
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # SECTION 2
     story.append(Paragraph("2. Dataset Description", h1_style))
@@ -230,10 +355,7 @@ def build_pdf():
     ))
 
     story.append(Paragraph("<b>2.3 Preprocessing Rules and Edge Reconciliation</b>", h2_style))
-    story.append(Paragraph(
-        "A critical phase in graph preparation is reconciling raw file records with graph-theoretic definitions:",
-        body_style
-    ))
+    story.append(Paragraph("A critical phase in graph preparation is reconciling raw file records with graph-theoretic definitions:", body_style))
     story.append(Paragraph("1. <b>Self-Loop Filtering:</b> A co-authorship tie requires two distinct individuals (u ≠ v). We identified exactly <b>12 self-loop lines</b> (where FromNodeId == ToNodeId) resulting from single-author submissions entered into the source database. These were systematically filtered out.", bullet_style))
     story.append(Paragraph("2. <b>Canonical Deduplication:</b> In the SNAP file, each undirected edge is listed symmetrically as two directed pairs: (u, v) and (v, u). Each edge was canonicalized to (min(u,v), max(u,v)) and deduplicated via RDD <code>.distinct()</code>, yielding exactly <b>14,484 unique undirected edges</b>.", bullet_style))
     story.append(Paragraph("3. <b>Benchmark Proof:</b> 14,484 unique undirected edges × 2 = 28,968 directed lines. Adding the 12 single-instance self-loops produces exactly 28,980 raw records. Adding the 12 self-loops back to 14,484 yields the official SNAP benchmark count of <b>14,496 edges</b>.", bullet_style))
@@ -246,7 +368,7 @@ def build_pdf():
         body_style
     ))
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # SECTION 3
     story.append(Paragraph("3. Implementation / Methodology", h1_style))
@@ -281,7 +403,7 @@ def build_pdf():
         bullet_style
     ))
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # SECTION 4
     story.append(Paragraph("4. Results and Evaluation", h1_style))
@@ -306,13 +428,13 @@ def build_pdf():
         ('TEXTCOLOR', (0,0), (-1,0), colors.HexColor('#0F172A')),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#CBD5E1')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(t_summary)
     story.append(Paragraph("Table 4.1: Empirical Network Metrics Computed by Apache Spark GraphX on ca-GrQc.", caption_style))
 
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
     story.append(Paragraph("<b>4.2 Top 10 Central Researchers by Collaborator Volume</b>", h2_style))
     story.append(Paragraph("Table 4.2 lists the top 10 researchers sorted descending by degree centrality:", body_style))
 
@@ -335,8 +457,8 @@ def build_pdf():
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#F1F5F9')),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#CBD5E1')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
     ]))
     story.append(t_top)
     story.append(Paragraph("Table 4.2: Top 10 Most Connected Researchers Computed by GraphX.", caption_style))
@@ -348,7 +470,7 @@ def build_pdf():
         body_style
     ))
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # SECTION 5 - VISUALIZATIONS WITH EMBEDDED IMAGES
     story.append(Paragraph("5. Visualization and Interpretation", h1_style))
@@ -360,7 +482,7 @@ def build_pdf():
 
     # Fig 1
     if os.path.exists('assets/figures/fig1_degree_distribution.png'):
-        img1 = Image('assets/figures/fig1_degree_distribution.png', width=480, height=256)
+        img1 = Image('assets/figures/fig1_degree_distribution.png', width=470, height=250)
         story.append(KeepTogether([
             img1,
             Paragraph("<b>Figure 5.1:</b> Scale-Free Degree Centrality Distribution P(k) exhibiting a heavy power-law tail.", caption_style),
@@ -370,12 +492,12 @@ def build_pdf():
                 "of preferential attachment in academic co-authorship.",
                 body_style
             ),
-            Spacer(1, 10)
+            Spacer(1, 8)
         ]))
 
     # Fig 2
     if os.path.exists('assets/figures/fig2_component_distribution.png'):
-        img2 = Image('assets/figures/fig2_component_distribution.png', width=480, height=240)
+        img2 = Image('assets/figures/fig2_component_distribution.png', width=470, height=235)
         story.append(KeepTogether([
             img2,
             Paragraph("<b>Figure 5.2:</b> Connected Component Frequency across Size Intervals (354 Components).", caption_style),
@@ -385,12 +507,12 @@ def build_pdf():
                 "strong global community cohesion across the General Relativity discipline.",
                 body_style
             ),
-            Spacer(1, 10)
+            Spacer(1, 8)
         ]))
 
     # Fig 3
     if os.path.exists('assets/figures/fig3_pagerank_vs_degree.png'):
-        img3 = Image('assets/figures/fig3_pagerank_vs_degree.png', width=480, height=256)
+        img3 = Image('assets/figures/fig3_pagerank_vs_degree.png', width=470, height=250)
         story.append(KeepTogether([
             img3,
             Paragraph("<b>Figure 5.3:</b> PageRank Prestige vs. Degree Centrality Scatter Plot.", caption_style),
@@ -400,12 +522,12 @@ def build_pdf():
                 "insular cliques who have minimal reach outside their group.",
                 body_style
             ),
-            Spacer(1, 10)
+            Spacer(1, 8)
         ]))
 
     # Fig 4
     if os.path.exists('assets/figures/fig4_knowledge_graph_canvas.png'):
-        img4 = Image('assets/figures/fig4_knowledge_graph_canvas.png', width=480, height=263)
+        img4 = Image('assets/figures/fig4_knowledge_graph_canvas.png', width=470, height=256)
         story.append(KeepTogether([
             img4,
             Paragraph("<b>Figure 5.4:</b> CollabSphere Knowledge Graph Canvas (Hub Subgraph & Ego Cluster View).", caption_style),
@@ -414,7 +536,7 @@ def build_pdf():
                 "with proportional node radii, enabling researchers to visually navigate collaborative clusters and drill into 1-hop ego networks.",
                 body_style
             ),
-            Spacer(1, 10)
+            Spacer(1, 8)
         ]))
 
     # SECTION 6
@@ -434,7 +556,7 @@ def build_pdf():
         body_style
     ))
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # SECTION 7
     story.append(Paragraph("7. References", h1_style))
@@ -450,7 +572,7 @@ def build_pdf():
     for r in refs:
         story.append(Paragraph(r, ParagraphStyle('Ref', parent=body_style, fontSize=8.5, leading=12, spaceAfter=4)))
 
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # SECTION 8
     story.append(Paragraph("8. Appendix: Code and Reproducibility", h1_style))
